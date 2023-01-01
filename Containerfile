@@ -19,7 +19,7 @@ RUN rpm-ostree install byobu gnome-shell-extension-auto-move-windows \
 
 # finally, install the last packages and commit our container changes
 RUN rpm-ostree install nmap podman-compose podman-docker tcpdump vim zsh \
-    virt-manager libvert && \
+    virt-manager libvirt && \
     ostree container commit
 
 # rocketship
