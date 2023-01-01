@@ -24,6 +24,9 @@ RUN rpm-ostree install nmap podman-compose podman-docker tcpdump vim zsh && \
 # rocketship
 RUN curl -fsSL https://starship.rs/install.sh | sh -s -- -y -b /usr/bin
 
+
+COPY adam-os-firstboot /usr/bin
+
 # Client-side stuff to figure out:
 # setup/configure zsh
 # RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
