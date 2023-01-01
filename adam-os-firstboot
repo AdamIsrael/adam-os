@@ -47,6 +47,7 @@ declare -a arr=(
     "io.github.Hexchat"
     "io.podman_desktop.PodmanDesktop"
     "md.obsidian.Obsidian"
+    "org.gnome.Boxes"
     "org.gnome.DevHelp"
     "org.signal.Signal"
     "org.telegram.desktop"
