@@ -59,7 +59,7 @@ declare -a arr=(
     "io.podman_desktop.PodmanDesktop"
     "md.obsidian.Obsidian"
     "org.gnome.Boxes"
-    "org.gnome.DevHelp"
+    "org.gnome.Devhelp"
     "org.signal.Signal"
     "org.telegram.desktop"
     "org.wireshark.Wireshark"
