@@ -17,8 +17,12 @@ RUN rpm-ostree install byobu gnome-shell-extension-auto-move-windows \
     gnome-shell-extension-frippery-bottom-panel gnome-shell-extension-frippery-move-clock \
     gnome-shell-extension-sound-output-device-chooser
 
+# Install local mysql-workbench
+RUN wget https://dev.mysql.com/get/Downloads/MySQLGUITools/mysql-workbench-community-8.0.31-1.fc37.x86_64.rpm && \
+    rpm-ostree install https://dev.mysql.com/get/Downloads/MySQLGUITools/mysql-workbench-community-8.0.31-1.fc37.x86_64.rpm
+
 # finally, install the last packages and commit our container changes
-RUN rpm-ostree install nmap podman-compose podman-docker tcpdump vim zsh && \
+RUN rpm-ostree install fzf nmap podman-compose podman-docker tcpdump vim zsh && \
     ostree container commit
 
 # rocketship
