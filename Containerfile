@@ -18,11 +18,8 @@ RUN rpm-ostree install byobu gnome-shell-extension-auto-move-windows \
     gnome-shell-extension-sound-output-device-chooser
 
 # Install local package(s)
-RUN wget https://dev.mysql.com/get/Downloads/MySQLGUITools/mysql-workbench-community-8.0.31-1.fc37.x86_64.rpm && \
+RUN wget -q https://dev.mysql.com/get/Downloads/MySQLGUITools/mysql-workbench-community-8.0.31-1.fc37.x86_64.rpm && \
     rpm-ostree install mysql-workbench-community-8.0.31-1.fc37.x86_64.rpm
-
-RUN wget https://downloads.1password.com/linux/rpm/stable/x86_64/1password-latest.rpm && \
-    rpm-ostree install 1password-latest.rpm
 
 # finally, install the last packages and commit our container changes
 RUN rpm-ostree install fzf nmap php podman-compose podman-docker python-black tcpdump vim zsh && \

@@ -42,6 +42,9 @@ echo "# Installing virtualization manager"
 rpm-ostree install virt-manager libvirt || true
 echo "35"
 
+wget -q https://downloads.1password.com/linux/rpm/stable/x86_64/1password-latest.rpm && \
+    rpm-ostree install 1password-latest.rpm || true && rm 1password-latest.rpm
+
 echo "# Installing Flatpak(s)"
 declare -a arr=(
     "com.discordapp.Discord"
@@ -96,6 +99,7 @@ git clone https://github.com/ahmetb/kubectx.git $HOME/.kubectx
 ln -s $HOME/.kubectx/completion/_kubectx.zsh $HOME/.oh-my-zsh/completions/_kubectx.zsh
 ln -s $HOME/.kubectx/completion/_kubens.zsh $HOME/.oh-my-zsh/completions/_kubens.zsh
 
+# Write dconf settings
 
 echo "# Reticulating Final Splines"
 mkdir -p "$HOME"/.config/adam-os/
