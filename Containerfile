@@ -5,12 +5,12 @@ COPY etc /etc
 # COPY usr /usr
 
 # install 3rd party repos/packages (1password, tailscale, vscode)
-# RUN wget https://pkgs.tailscale.com/stable/fedora/tailscale.repo -O /etc/yum.repos.d/tailscale.repo && \
-#     rpm --import https://packages.microsoft.com/keys/microsoft.asc && \
-#     rpm --import https://downloads.1password.com/linux/keys/1password.asc && \
-#     rpm-ostree install tailscale && systemctl enable tailscaled && rm -f /etc/yum.repos.d/tailscale.repo && \
-#     rpm-ostree install code && rm -f /etc/yum.repos.d/vscode.repo && \
-#     rpm-ostree install 1password && rm -f /etc/yum.repos.d/1password.repo
+RUN wget https://pkgs.tailscale.com/stable/fedora/tailscale.repo -O /etc/yum.repos.d/tailscale.repo && \
+    rpm --import https://packages.microsoft.com/keys/microsoft.asc && \
+    # rpm --import https://downloads.1password.com/linux/keys/1password.asc && \
+    rpm-ostree install tailscale && systemctl enable tailscaled && rm -f /etc/yum.repos.d/tailscale.repo && \
+    rpm-ostree install code && rm -f /etc/yum.repos.d/vscode.repo
+    # rpm-ostree install 1password && rm -f /etc/yum.repos.d/1password.repo
 
 # install gnome extensions
 RUN rpm-ostree install byobu gnome-shell-extension-auto-move-windows \
@@ -22,8 +22,9 @@ RUN rpm-ostree install nmap podman-compose podman-docker tcpdump vim zsh && \
     ostree container commit
 
 # rocketship
-# RUN curl -sS https://starship.rs/install.sh | sh
+RUN curl -fsSL https://starship.rs/install.sh | sh -s -- -y -b /usr/bin
 
+# Client-side stuff to figure out:
 # setup/configure zsh
 # RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
