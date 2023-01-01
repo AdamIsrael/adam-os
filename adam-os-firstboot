@@ -18,11 +18,11 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 echo "10"
 
 echo "# Cloning/updating dotfiles"
-if [ -d "$FILE" ]; then
+if [ ! -d "$HOME/.dotfiles" ]; then
     git clone https://github.com/AdamIsrael/dotfiles.git $HOME/.dotfiles
     cd $HOME/.dotfiles && git submodule update --init --remote && cd $HOME
 else
-    cd $HOME/.dotfiles && git pull && cd $HOME
+    cd $HOME/.dotfiles && git pull && git submodule update && cd $HOME
 fi
 echo "20"
 
@@ -37,14 +37,15 @@ rm -f $HOME/.vimrc && ln -s $HOME/.dotfiles/vimrc $HOME/.vimrc
 echo "30"
 
 # Install virtualization bits
-# echo "# Installing virtualization manager"
-# rpm-ostree install virt-manager libvirt
-# echo "35"
+# Can't install via Containerfile because it writes to /var
+echo "# Installing virtualization manager"
+rpm-ostree install virt-manager libvirt
+echo "35"
 
 echo "# Installing Flatpak(s)"
 declare -a arr=(
-    "com.discordapp.Discord"
-    "com.dropbox.Client"
+    # "com.discordapp.Discord"
+    # "com.dropbox.Client"
     "com.getpostman.Postman"
     "com.google.Chrome"
     "com.mattjakeman.ExtensionManager"
@@ -63,12 +64,14 @@ declare -a arr=(
     "sh.cider.Cider"
     "us.zoom.Zoom"
 )
+
+flatpak install https://downloads.1password.com/linux/flatpak/1Password.flatpakref
 for i in "${arr[@]}"
 do
     /usr/bin/flatpak install --user --noninteractive flathub $i
     if [ "$?" != 0 ] ; then
             zenity --error \
-            --text="Installing Firefox Failed"
+            --text="Installing $i Failed"
             exit 1
     fi
 done
