@@ -15,17 +15,24 @@ echo "00"
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 echo "10"
 
-git clone https://github.com/AdamIsrael/dotfiles.git .dotfiles && \
-    rm .zshrc && ln -s .dotfiles/zshrc .zshrc
+git clone https://github.com/AdamIsrael/dotfiles.git $HOME/.dotfiles && \
+    rm $HOME/.zshrc && ln -s $HOME/.dotfiles/zshrc .zshrc && \
+    rm $HOME/.aliases && ln -s $HOME/.dotfiles/aliases $HOME/.aliases &&
+    rm $HOME/.bash_profile && ln -s $HOME/.dotfiles/bash_profile $HOME/.bash_profile && \
+    rm $HOME/.gitconfig && ln -s $HOME/.dotfiles/gitconfig $HOME/.gitconfig && \
+    rm $HOME/.vimrc && ln -s $HOME/.dotfiles/vimrc $HOME/.vimrc && \
+    cd $HOME/.dotfiles && git submodule update --init --remote
+    # ln -s $HOME/.dotfiles/zsh/plugins/zsh-syntax-highlighting
 echo "20"
 
 
 echo "# Reticulating Final Splines"
 mkdir -p "$HOME"/.config/adam-os/
 touch "$HOME"/.config/adam-os/firstboot-done
+
 ) |
-     
-   zenity --progress --title="uBlue Desktop Firstboot" --percentage=0 --auto-close --no-cancel --width=300
+
+   zenity --progress --title="Adam-OS Desktop Firstboot" --percentage=0 --auto-close --no-cancel --width=300
 
 if [ "$?" != 0 ] ; then
         zenity --error \
