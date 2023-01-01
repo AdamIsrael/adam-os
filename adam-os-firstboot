@@ -37,9 +37,9 @@ rm -f $HOME/.vimrc && ln -s $HOME/.dotfiles/vimrc $HOME/.vimrc
 echo "30"
 
 # Install virtualization bits
-echo "# Installing virtualization manager"
-rpm-ostree install virt-manager libvirt
-echo "35"
+# echo "# Installing virtualization manager"
+# rpm-ostree install virt-manager libvirt
+# echo "35"
 
 echo "# Installing Flatpak(s)"
 declare -a arr=(
