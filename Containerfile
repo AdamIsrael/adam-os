@@ -19,12 +19,13 @@ RUN rpm-ostree install byobu gnome-shell-extension-auto-move-windows \
 
 # finally, install the last packages and commit our container changes
 RUN rpm-ostree install nmap podman-compose podman-docker tcpdump vim zsh && \
+    virt-manager libvert && \
     ostree container commit
 
 # rocketship
 RUN curl -fsSL https://starship.rs/install.sh | sh -s -- -y -b /usr/bin
 
-
+# Still need to trigger this to run on first boot
 COPY adam-os-firstboot /usr/bin
 
 # Client-side stuff to figure out:
