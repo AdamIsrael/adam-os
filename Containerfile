@@ -18,7 +18,7 @@ RUN rpm-ostree install byobu gnome-shell-extension-auto-move-windows \
     gnome-shell-extension-sound-output-device-chooser
 
 # finally, install the last packages and commit our container changes
-RUN rpm-ostree install nmap podman-compose podman-docker tcpdump vim zsh && \
+RUN rpm-ostree install nmap podman-compose podman-docker tcpdump vim zsh \
     virt-manager libvert && \
     ostree container commit
 
