@@ -16,11 +16,11 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 echo "10"
 
 git clone https://github.com/AdamIsrael/dotfiles.git $HOME/.dotfiles && \
-    rm $HOME/.zshrc && ln -s $HOME/.dotfiles/zshrc .zshrc && \
-    rm $HOME/.aliases && ln -s $HOME/.dotfiles/aliases $HOME/.aliases &&
-    rm $HOME/.bash_profile && ln -s $HOME/.dotfiles/bash_profile $HOME/.bash_profile && \
-    rm $HOME/.gitconfig && ln -s $HOME/.dotfiles/gitconfig $HOME/.gitconfig && \
-    rm $HOME/.vimrc && ln -s $HOME/.dotfiles/vimrc $HOME/.vimrc && \
+    rm -f $HOME/.zshrc && ln -s $HOME/.dotfiles/zshrc .zshrc && \
+    rm -f $HOME/.aliases && ln -s $HOME/.dotfiles/aliases $HOME/.aliases &&
+    rm -f $HOME/.bash_profile && ln -s $HOME/.dotfiles/bash_profile $HOME/.bash_profile && \
+    rm -f $HOME/.gitconfig && ln -s $HOME/.dotfiles/gitconfig $HOME/.gitconfig && \
+    rm -f $HOME/.vimrc && ln -s $HOME/.dotfiles/vimrc $HOME/.vimrc && \
     cd $HOME/.dotfiles && git submodule update --init --remote
     # ln -s $HOME/.dotfiles/zsh/plugins/zsh-syntax-highlighting
 echo "20"
