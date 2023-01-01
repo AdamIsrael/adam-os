@@ -39,18 +39,17 @@ echo "30"
 # Install virtualization bits
 # Can't install via Containerfile because it writes to /var
 echo "# Installing virtualization manager"
-rpm-ostree install virt-manager libvirt
+rpm-ostree install virt-manager libvirt || true
 echo "35"
 
 echo "# Installing Flatpak(s)"
 declare -a arr=(
-    # "com.discordapp.Discord"
-    # "com.dropbox.Client"
+    "com.discordapp.Discord"
+    "com.dropbox.Client"
     "com.getpostman.Postman"
     "com.google.Chrome"
     "com.mattjakeman.ExtensionManager"
     "com.obsproject.Studio"
-    "com.onepassword.OnePassword"
     "com.slack.Slack"
     "com.valvesoftware.Steam"
     "io.github.Hexchat"
@@ -65,9 +64,9 @@ declare -a arr=(
     "us.zoom.Zoom"
 )
 
-flatpak install https://downloads.1password.com/linux/flatpak/1Password.flatpakref
 for i in "${arr[@]}"
 do
+    echo "# Installing flatpak $1"
     /usr/bin/flatpak install --user --noninteractive flathub $i
     if [ "$?" != 0 ] ; then
             zenity --error \
