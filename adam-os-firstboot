@@ -13,18 +13,21 @@ until /usr/bin/ping -q -c 1 flathub.org; do sleep 1; done
 echo "00"
 
 # setup/configure zsh
+echo "# Configuring zsh"
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 echo "10"
 
+echo "# Cloning/updating dotfiles"
 if [ -d "$FILE" ]; then
     git clone https://github.com/AdamIsrael/dotfiles.git $HOME/.dotfiles
     cd $HOME/.dotfiles && git submodule update --init --remote && cd $HOME
 else
-    cd $HOME/.dotfiles && git update && cd $HOME
+    cd $HOME/.dotfiles && git pull && cd $HOME
 fi
 echo "20"
 
 # Setup symlinks
+echo "# Setting up symlinks"
 rm -f $HOME/.zshrc && ln -s $HOME/.dotfiles/zshrc .zshrc && \
 rm -f $HOME/.aliases && ln -s $HOME/.dotfiles/aliases $HOME/.aliases &&
 rm -f $HOME/.bash_profile && ln -s $HOME/.dotfiles/bash_profile $HOME/.bash_profile && \
@@ -34,6 +37,7 @@ rm -f $HOME/.vimrc && ln -s $HOME/.dotfiles/vimrc $HOME/.vimrc
 echo "30"
 
 # Install virtualization bits
+echo "# Installing virtualization manager"
 rpm-ostree install virt-manager libvirt
 echo "35"
 
@@ -71,15 +75,16 @@ done
 echo "40"
 
 # Install CLI tool(s)
+echo "# Install CLI tool(s)"
 mkdir -p $HOME/.local/bin
 
-# install kubectx
-curl https://github.com/ahmetb/kubectx/releases/download/v0.9.4/kubectx_v0.9.4_linux_x86_64.tar.gz -O kubectx.tar.gz && \
-    tar xf kubectx.tar.gz && mv kubectx $HOME/.local/bin
+# # install kubectx
+# curl https://github.com/ahmetb/kubectx/releases/download/v0.9.4/kubectx_v0.9.4_linux_x86_64.tar.gz -O kubectx.tar.gz && \
+#     tar xf kubectx.tar.gz && mv kubectx $HOME/.local/bin
 
-# install kubens
-curl https://github.com/ahmetb/kubectx/releases/download/v0.9.4/kubens_v0.9.4_linux_x86_64.tar.gz -O kubens.tar.gz && \
-    tar xf kubens.tar.gz && mv kubens $HOME/.local/bin
+# # install kubens
+# curl https://github.com/ahmetb/kubectx/releases/download/v0.9.4/kubens_v0.9.4_linux_x86_64.tar.gz -O kubens.tar.gz && \
+#     tar xf kubens.tar.gz && mv kubens $HOME/.local/bin
 
 # install completions
 mkdir -p ~/.oh-my-zsh/completions && chmod -R 755 ~/.oh-my-zsh/completions
