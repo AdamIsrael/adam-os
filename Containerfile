@@ -22,7 +22,7 @@ RUN wget https://dev.mysql.com/get/Downloads/MySQLGUITools/mysql-workbench-commu
     rpm-ostree install https://dev.mysql.com/get/Downloads/MySQLGUITools/mysql-workbench-community-8.0.31-1.fc37.x86_64.rpm
 
 # finally, install the last packages and commit our container changes
-RUN rpm-ostree install fzf nmap podman-compose podman-docker python-black tcpdump vim zsh && \
+RUN rpm-ostree install fzf nmap php podman-compose podman-docker python-black tcpdump vim zsh && \
     ostree container commit
 
 # rocketship
@@ -31,15 +31,17 @@ RUN curl -fsSL https://starship.rs/install.sh | sh -s -- -y -b /usr/bin
 # Still need to trigger this to run on first boot
 COPY adam-os-firstboot /usr/bin
 
-# Client-side stuff to figure out:
-# setup/configure zsh
-# RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+# K8s tools
 
-# # clone my dotfiles and set them up
-# RUN git clone https://github.com/AdamIsrael/dotfiles.git .dotfiles && \
-#     rm .zshrc && ln -s .dotfiles/zshrc .zshrc
+# install kubectx
+RUN curl https://github.com/ahmetb/kubectx/releases/download/v0.9.4/kubectx_v0.9.4_linux_x86_64.tar.gz -O kubectx.tar.gz && \
+    tar xf kubectx.tar.gz && mv kubectx /usr/bin && \
+    chmod +x /usr/bin/kubectx
 
-# # K8s tools
+# install kubens
+RUN curl https://github.com/ahmetb/kubectx/releases/download/v0.9.4/kubens_v0.9.4_linux_x86_64.tar.gz -O kubens.tar.gz && \
+    tar xf kubens.tar.gz && mv kubens /usr/bin && \
+    chmod +x /usr/bin/kubens
 
 # RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
 # RUN chmod +x ./kubectl
