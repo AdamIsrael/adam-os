@@ -34,14 +34,12 @@ COPY adam-os-firstboot /usr/bin
 # K8s tools
 
 # install kubectx
-RUN curl https://github.com/ahmetb/kubectx/releases/download/v0.9.4/kubectx_v0.9.4_linux_x86_64.tar.gz -O kubectx.tar.gz && \
-    tar xf kubectx.tar.gz && mv kubectx /usr/bin && \
-    chmod +x /usr/bin/kubectx
+RUN curl --no-progress-meter -L https://github.com/ahmetb/kubectx/releases/download/v0.9.4/kubectx_v0.9.4_linux_x86_64.tar.gz -o kubectx.tar.gz
+RUN tar xf kubectx.tar.gz && chmod +x kubectx && mv kubectx /usr/bin
 
 # install kubens
-RUN curl https://github.com/ahmetb/kubectx/releases/download/v0.9.4/kubens_v0.9.4_linux_x86_64.tar.gz -O kubens.tar.gz && \
-    tar xf kubens.tar.gz && mv kubens /usr/bin && \
-    chmod +x /usr/bin/kubens
+RUN curl --no-progress-meter -L https://github.com/ahmetb/kubectx/releases/download/v0.9.4/kubens_v0.9.4_linux_x86_64.tar.gz -o kubens.tar.gz
+RUN tar xf kubens.tar.gz && chmod +x kubens && mv kubens /usr/bin
 
 # RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
 # RUN chmod +x ./kubectl
