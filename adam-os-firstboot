@@ -83,14 +83,6 @@ echo "40"
 echo "# Install CLI tool(s)"
 mkdir -p $HOME/.local/bin
 
-# # install kubectx
-# curl https://github.com/ahmetb/kubectx/releases/download/v0.9.4/kubectx_v0.9.4_linux_x86_64.tar.gz -O kubectx.tar.gz && \
-#     tar xf kubectx.tar.gz && mv kubectx $HOME/.local/bin
-
-# # install kubens
-# curl https://github.com/ahmetb/kubectx/releases/download/v0.9.4/kubens_v0.9.4_linux_x86_64.tar.gz -O kubens.tar.gz && \
-#     tar xf kubens.tar.gz && mv kubens $HOME/.local/bin
-
 # install completions
 mkdir -p ~/.oh-my-zsh/completions && chmod -R 755 ~/.oh-my-zsh/completions
 kubectl completion zsh > $HOME/.oh-my-zsh/completions/_kubectl
@@ -100,6 +92,13 @@ ln -s $HOME/.kubectx/completion/_kubectx.zsh $HOME/.oh-my-zsh/completions/_kubec
 ln -s $HOME/.kubectx/completion/_kubens.zsh $HOME/.oh-my-zsh/completions/_kubens.zsh
 
 # Write dconf settings
+dconf write /org/gnome/mutter/dynamic-workspaces false
+dconf write /org/gnome/desktop/wm/preferences/num-workspaces 8
+dconf write /org/frippery/bottom-panel/num-rows 2
+dconf write /org/frippery/bottom-panel/enable-panel true
+## disable dash-to-dock
+dconf write /org/gnome/shell/disabled-extensions "@as ['dash-to-dock@micxgx.gmail.com']"
+echo "90"
 
 echo "# Reticulating Final Splines"
 mkdir -p "$HOME"/.config/adam-os/
