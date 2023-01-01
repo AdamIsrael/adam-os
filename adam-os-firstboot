@@ -1,5 +1,6 @@
 #!/bin/sh
-# the idea is to replace this w/https://github.com/Vanilla-OS/first-setup
+# the idea is to eventually replace this w/https://github.com/Vanilla-OS/first-setup
+# this script should be idempotent, so it can be run again to pick up new changes
 
 if test -e "$HOME"/.config/adam-os/firstboot-done; then
     echo "Already ran"
@@ -15,16 +16,55 @@ echo "00"
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 echo "10"
 
-git clone https://github.com/AdamIsrael/dotfiles.git $HOME/.dotfiles && \
-    rm -f $HOME/.zshrc && ln -s $HOME/.dotfiles/zshrc .zshrc && \
-    rm -f $HOME/.aliases && ln -s $HOME/.dotfiles/aliases $HOME/.aliases &&
-    rm -f $HOME/.bash_profile && ln -s $HOME/.dotfiles/bash_profile $HOME/.bash_profile && \
-    rm -f $HOME/.gitconfig && ln -s $HOME/.dotfiles/gitconfig $HOME/.gitconfig && \
-    rm -f $HOME/.vimrc && ln -s $HOME/.dotfiles/vimrc $HOME/.vimrc && \
-    cd $HOME/.dotfiles && git submodule update --init --remote
-    # ln -s $HOME/.dotfiles/zsh/plugins/zsh-syntax-highlighting
+if [ -d "$FILE" ]; then
+    git clone https://github.com/AdamIsrael/dotfiles.git $HOME/.dotfiles
+    cd $HOME/.dotfiles && git submodule update --init --remote && cd $HOME
+else
+    cd $HOME/.dotfiles && git update && cd $HOME
+fi
 echo "20"
 
+# Setup symlinks
+rm -f $HOME/.zshrc && ln -s $HOME/.dotfiles/zshrc .zshrc && \
+rm -f $HOME/.aliases && ln -s $HOME/.dotfiles/aliases $HOME/.aliases &&
+rm -f $HOME/.bash_profile && ln -s $HOME/.dotfiles/bash_profile $HOME/.bash_profile && \
+rm -f $HOME/.gitconfig && ln -s $HOME/.dotfiles/gitconfig $HOME/.gitconfig && \
+rm -f $HOME/.vimrc && ln -s $HOME/.dotfiles/vimrc $HOME/.vimrc
+# ln -s $HOME/.dotfiles/zsh/plugins/zsh-syntax-highlighting
+echo "30"
+
+echo "# Installing Flatpak(s)"
+declare -a arr=(
+    "com.discordapp.Discord"
+    "com.dropbox.Client"
+    "com.getpostman.Postman"
+    "com.google.Chrome"
+    "com.mattjakeman.ExtensionManager"
+    "com.obsproject.Studio"
+    "com.onepassword.OnePassword"
+    "com.slack.Slack"
+    "com.valvesoftware.Steam"
+    "io.github.Hexchat"
+    "io.podman_desktop.PodmanDesktop"
+    "md.obsidian.Obsidian"
+    "org.gnome.DevHelp"
+    "org.signal.Signal"
+    "org.telegram.desktop"
+    "org.wireshark.Wireshark"
+    "sh.cider.Cider"
+    "us.zoom.Zoom"
+)
+for i in "${arr[@]}"
+do
+    /usr/bin/flatpak install --user --noninteractive flathub $i
+    if [ "$?" != 0 ] ; then
+            zenity --error \
+            --text="Installing Firefox Failed"
+            exit 1
+    fi
+done
+
+echo "40"
 
 echo "# Reticulating Final Splines"
 mkdir -p "$HOME"/.config/adam-os/
