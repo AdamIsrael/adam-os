@@ -22,7 +22,7 @@ RUN wget -q https://dev.mysql.com/get/Downloads/MySQLGUITools/mysql-workbench-co
     rpm-ostree install mysql-workbench-community-8.0.31-1.fc37.x86_64.rpm
 
 # finally, install the last packages and commit our container changes
-RUN rpm-ostree install fzf nmap php podman-compose podman-docker python-black tcpdump vim zsh && \
+RUN rpm-ostree install fzf hugo nmap php podman-compose podman-docker python-black tcpdump vim zsh && \
     ostree container commit
 
 # rocketship
