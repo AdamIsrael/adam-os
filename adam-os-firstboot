@@ -33,7 +33,8 @@ rm -f $HOME/.aliases && ln -s $HOME/.dotfiles/aliases $HOME/.aliases &&
 rm -f $HOME/.bash_profile && ln -s $HOME/.dotfiles/bash_profile $HOME/.bash_profile && \
 rm -f $HOME/.gitconfig && ln -s $HOME/.dotfiles/gitconfig $HOME/.gitconfig && \
 rm -f $HOME/.vimrc && ln -s $HOME/.dotfiles/vimrc $HOME/.vimrc
-# ln -s $HOME/.dotfiles/zsh/plugins/zsh-syntax-highlighting
+ln -s $HOME/.dotfiles/zsh/plugins/zsh-syntax-highlighting $HOME/.oh-my-zsh/plugins/zsh-syntax-highlighting
+ln -s $HOME/.dotfiles/zsh/plugins/zsh-autosuggestions $HOME/.oh-my-zsh/plugins/zsh-autosuggestions
 echo "30"
 
 # Install virtualization bits
@@ -96,9 +97,17 @@ dconf write /org/gnome/mutter/dynamic-workspaces false
 dconf write /org/gnome/desktop/wm/preferences/num-workspaces 8
 dconf write /org/frippery/bottom-panel/num-rows 2
 dconf write /org/frippery/bottom-panel/enable-panel true
+
 ## disable dash-to-dock
 dconf write /org/gnome/shell/disabled-extensions "@as ['dash-to-dock@micxgx.gmail.com']"
+
+## alt-tab within the current workspace
+dconf write /org/gnome/shell/app-switcher/current-workspace-only true
+
 echo "90"
+
+# change the default shell to zsh
+usermod -s `which zsh` $USERNAME
 
 echo "# Reticulating Final Splines"
 mkdir -p "$HOME"/.config/adam-os/
